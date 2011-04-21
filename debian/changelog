@@ -1,0 +1,5 @@
+android-bash-completion (0.0.0~20110421) unstable; urgency=low
+
+  * Initial release. (Closes: #XXXXXX)
+
+ -- Hans-Christoph Steiner <hans@eds.org>  Thu, 21 Apr 2011 12:23:37 -0400

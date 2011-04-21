@@ -1,0 +1,21 @@
+Source: android-bash-completion
+Section: shells
+Priority: optional
+Maintainer: Hans-Christoph Steiner <hans@eds.org>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.1
+Homepage: https://github.com/mbrubeck/android-completion
+Vcs-Git: git://github.com/guardianproject/android-completion.git
+Vcs-Browser: https://github.com/guardianproject/android-completion/
+
+Package: android-bash-completion
+Architecture: all
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: physical modeling library for Pd
+ A library for Pd for modeling the interactions of the physical world. These
+ objects provide real-time simulations, specially physical behaviors. pmpd can
+ be used to create natural dynamic systems, like a bouncing ball, string
+ movement, Brownian movement, chaos, fluid dynamics, sand, gravitation, and
+ more. It can also be used to create displacements thus allowing a completely
+ dynamic approach of pd computing.
