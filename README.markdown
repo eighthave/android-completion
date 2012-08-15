@@ -1,6 +1,7 @@
-This is a Bash completion script for the `android`, `adb`, `emulator`, and `fastboot`
-command-line tools from the Google Android SDK.  If you'd like to add
-completions for other Android tools, please let me know.
+This is a Bash completion script for the `android`, `adb`, `emulator`,
+`fastboot`, `ndk-build`, and `ndk-gdb` command-line tools from the Google
+Android SDK.  If you'd like to add completions for other Android tools, please
+let me know.
 
 Install
 =======
