@@ -286,17 +286,7 @@ function _emulator()
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  opts="-system -datadir -kernel -ramdisk -init-data -data -partition-size -cache \
-    -no-cache -sdcard -wipe-data -avd -skindir -skin -no-skin -memory -netspeed -netdelay \
-    -netfast -trace -show-kernel -shell -no-jni -logcat -no-audio -audio \
-    -audio-in -audio-out -raw-keys -radio -port -ports -onion -onion-alpha \
-    -onion-rotation -scale -dpi-device -http-proxy -timezone -dns-server \
-    -cpu-delay -no-boot-anim -no-window -version -report-console -gps -keyset \
-    -shell-serial -old-system -tcpdump -bootchart -nand-limits -qemu -verbose -debug -help \
-    -help-disk-images -help-keys -help-debug-tags -help-char-devices \
-    -help-environment -help-keyset-file -help-virtual-device -help-sdk-images \
-    -help-build-images -help-all"
-
+  opts="-sysdir -system -datadir -kernel -ramdisk -image -initdata -data -partition-size -cache -no-cache -sdcard -snapstorage -no-snapstorage -snapshot -no-snapshot -no-snapshot-save -no-snapshot-load -snapshot-list -no-snapshot-update-time -wipe-data -avd -skindir -skin -no-skin -memory -netspeed -netdelay -netfast -trace -show-kernel -shell -no-jni -logcat -no-audio -audio -raw-keys -radio -port -ports -onion -onion-alpha -onion-rotation -scale -dpi-device -http-proxy -timezone -dns-server -cpu-delay -no-boot-anim -no-window -version -report-console -gps -keyset -shell-serial -tcpdump -bootchart -charmap -prop -shared-net-id -nand-limits -memcheck -gpu -fake-camera -webcam -screen -qemu -verbose -debug -help -help-disk-images -help-keys -help-debug-tags -help-char-devices -help-environment -help-keyset-file -help-virtual-device -help-sdk-images -help-build-images -help-all"
   case "$cur" in
     -*)
       COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
