@@ -475,3 +475,18 @@ function _ndk_build()
   fi
 }
 complete -o default -F _ndk_build ndk-build
+
+function _ndk_gdb()
+{
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  opts="-d -e -h -? -p -s -x --help --verbose --force --start --launch= --launch-list --delay= --project= --port= --exec= --adb= --awk="
+
+  if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]]; then
+      COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+      return 0
+  fi
+}
+complete -o default -F _ndk_gdb ndk-gdb
