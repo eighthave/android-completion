@@ -282,16 +282,180 @@ complete -o default -F _fastboot fastboot
 
 function _emulator()
 {
-  local cur prev opts
+  local cur prev opts onion_opts
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
-  opts="-sysdir -system -datadir -kernel -ramdisk -image -initdata -data -partition-size -cache -no-cache -sdcard -snapstorage -no-snapstorage -snapshot -no-snapshot -no-snapshot-save -no-snapshot-load -snapshot-list -no-snapshot-update-time -wipe-data -avd -skindir -skin -no-skin -memory -netspeed -netdelay -netfast -trace -show-kernel -shell -no-jni -logcat -no-audio -audio -raw-keys -radio -port -ports -onion -onion-alpha -onion-rotation -scale -dpi-device -http-proxy -timezone -dns-server -cpu-delay -no-boot-anim -no-window -version -report-console -gps -keyset -shell-serial -tcpdump -bootchart -charmap -prop -shared-net-id -nand-limits -memcheck -gpu -fake-camera -webcam -screen -qemu -verbose -debug -help -help-disk-images -help-keys -help-debug-tags -help-char-devices -help-environment -help-keyset-file -help-virtual-device -help-sdk-images -help-build-images -help-all"
-  case "$cur" in
-    -*)
-      COMPREPLY=( $(compgen -W "$opts" -- ${cur}) )
+  opts="-sysdir -system -datadir -kernel -ramdisk -initdata -data -partition-size -cache -no-cache -sdcard -snapstorage -no-snapstorage -snapshot -no-snapshot -no-snapshot-save -no-snapshot-load -snapshot-list -no-snapshot-update-time -wipe-data -avd -skindir -skin -no-skin -memory -netspeed -netdelay -netfast -trace -show-kernel -shell -no-jni -logcat -no-audio -audio -raw-keys -radio -port -ports -onion -scale -dpi-device -http-proxy -timezone -dns-server -cpu-delay -no-boot-anim -no-window -version -report-console -gps -keyset -shell-serial -tcpdump -bootchart -charmap -prop -shared-net-id -nand-limits -memcheck -gpu -fake-camera -webcam -screen -qemu -verbose -debug -help -help-disk-images -help-keys -help-debug-tags -help-char-devices -help-environment -help-keyset-file -help-virtual-device -help-sdk-images -help-build-images -help-all"
+  onion_opts="-onion-alpha -onion-rotation"
+
+  if [ ${COMP_CWORD} -eq 1 ]; then
+      COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
       return 0
-      ;;
+  fi
+
+  case "${prev}" in
+      -avd)
+          local avds=$(for a in $HOME/.android/avd/*.avd; do \
+              echo $a | sed 's|.*/\(.*\)\.avd$|\1|'; \
+              done)
+         COMPREPLY=( $(compgen -W "${avds}" -- ${cur}) )
+          ;;
+      -onion-rotation)
+          local rotations="0 1 2 3"
+         COMPREPLY=( $(compgen -W "${rotations}" -- ${cur}) )
+          return 0
+          ;;
+      -audio)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -bootchart)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -cache)
+         COMPREPLY=( $(compgen -A file -o filenames -G '*.img' -- ${cur}) )
+          ;;
+      -cache-size)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -camera-back)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -camera-front)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -charmap)
+         COMPREPLY=( $(compgen -A file -o filenames -- ${cur}) )
+          ;;
+      -cpu-delay)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -data)
+         COMPREPLY=( $(compgen -A file -o filenames -- ${cur}) )
+          ;;
+      -datadir)
+         COMPREPLY=( $(compgen -A directory -- ${cur}) )
+          ;;
+      -debug)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -dns-server)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -dpi-device)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -gps)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -gpu)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -http-proxy)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -initdata)
+         COMPREPLY=( $(compgen -A file -o filenames -- ${cur}) )
+          ;;
+      -kernel)
+         COMPREPLY=( $(compgen -A file -o filenames -- ${cur}) )
+          ;;
+      -keyset)
+         COMPREPLY=( $(compgen -A file -o filenames -- ${cur}) )
+          ;;
+      -logcat)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -memcheck)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -memory)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -nand-limits)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -netdelay)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -netspeed)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -onion)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -onion-alpha)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -partition-size)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -port)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -ports)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -prop)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -radio)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -ramdisk)
+         COMPREPLY=( $(compgen -A file -o filenames -G '*.img' -- ${cur}) )
+          ;;
+      -report-console)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -scale)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -screen)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -sdcard)
+         COMPREPLY=( $(compgen -A file -o filenames -G '*.img' -- ${cur}) )
+          ;;
+      -shared-net-id)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -shell-serial)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -skin)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -skindir)
+         COMPREPLY=( $(compgen -A directory -- ${cur}) )
+          ;;
+      -snapshot)
+         COMPREPLY=( $(compgen -A file -- ${cur}) )
+          ;;
+      -snapstorage)
+         COMPREPLY=( $(compgen -A file -- ${cur}) )
+          ;;
+      -sysdir)
+         COMPREPLY=( $(compgen -A directory -- ${cur}) )
+          ;;
+      -system)
+         COMPREPLY=( $(compgen -A file -o filenames -G '*.img' -- ${cur}) )
+          ;;
+      -tcpdump)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -timezone)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      -trace)
+         COMPREPLY=( $(compgen -W "" -- ${cur}) )
+          ;;
+      *)
+          COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+          ;;
   esac
 }
 complete -o default -F _emulator emulator
+complete -o default -F _emulator emulator-arm
+complete -o default -F _emulator emulator-x86
+
