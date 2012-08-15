@@ -459,3 +459,19 @@ complete -o default -F _emulator emulator
 complete -o default -F _emulator emulator-arm
 complete -o default -F _emulator emulator-x86
 
+# http://source-android.frandroid.com/ndk/docs/NDK-BUILD.html
+function _ndk_build()
+{
+  local cur prev cmds opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  cmds="clean NDK_APP_APPLICATION_MK= NDK_DEBUG=0 NDK_DEBUG=1 NDK_LOG=1 V=1"
+  opts="-b -B -C -d -e -f -h -i -I -j -k -l -L -n -o -p -q -r -R -s -S -t -v -w -W --always-make --directory= --debug --environment-overrides --file= --help --ignore-errors --include-dir= --jobs --keep-going --load-average --check-symlink-times --just-print --old-file= --print-data-base --question --no-builtin-rules --no-builtin-variables --silent --no-keep-going --touch --version --print-directory even --what-if= --warn-undefined-variables"
+
+  if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]]; then
+      COMPREPLY=( $(compgen -W "${opts} ${cmds}" -- ${cur}) )
+      return 0
+  fi
+}
+complete -o default -F _ndk_build ndk-build
