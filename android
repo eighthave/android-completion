@@ -183,12 +183,13 @@ function _adb()
       return 0
       ;;
     uninstall)
-      case "${cur}" in
-        -*)
-          COMPREPLY=( $(compgen -W "-k" -- ${cur}) )
-          return 0
-          ;;
-      esac
+      local apks=$(adb shell ls /data/data | tr '\n' ' ' | tr -d '\r')
+      if [[ $prev != "-k" && $cur == "-" ]]; then
+          COMPREPLY=( $(compgen -W "-k $apks" -- ${cur}) )
+      else
+          COMPREPLY=( $(compgen -W "$apks" -- ${cur}) )
+      fi
+      return 0
       ;;
     logcat)
       case "${cur}" in
