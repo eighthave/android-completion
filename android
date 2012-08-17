@@ -183,7 +183,7 @@ function _adb()
       return 0
       ;;
     uninstall)
-      local apks=$(adb shell ls /data/data | tr '\n' ' ' | tr -d '\r')
+      local apks=$(adb shell ls /data/data 2>/dev/null | tr '\n' ' ' | tr -d '\r')
       if [[ $prev != "-k" && $cur == "-" ]]; then
           COMPREPLY=( $(compgen -W "-k $apks" -- ${cur}) )
       else
