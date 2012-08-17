@@ -209,6 +209,30 @@ function _adb()
           ;;
       esac
       ;;
+    pull)
+      if [ ${prev} == "pull" ]; then
+          if [ -z ${cur} ]; then
+              local files=$(adb shell "ls -a -d /*" 2>/dev/null | tr '\n' ' ' | tr -d '\r')
+              COMPREPLY=( $(compgen -W "$files" -o filenames -- ${cur}) )
+          else
+              local files=$(adb shell "ls -a -d ${cur}*" 2>/dev/null | tr '\n' ' ' | tr -d '\r')
+              COMPREPLY=( $(compgen -W "$files" -o filenames -- ${cur}) )
+          fi
+          return 0
+      fi
+      ;;
+    push)
+      if [ "${COMP_WORDS[COMP_CWORD-2]}" == "push" ]; then
+          if [ -z "${cur}" ]; then
+              local files=$(adb shell "ls -a -d /*" 2>/dev/null | tr '\n' ' ' | tr -d '\r')
+              COMPREPLY=( $(compgen -W "$files" -o filenames -- ${cur}) )
+          else
+              local files=$(adb shell "ls -a -d ${cur}*" 2>/dev/null | tr '\n' ' ' | tr -d '\r')
+              COMPREPLY=( $(compgen -W "$files" -o filenames -- ${cur}) )
+          fi
+          return 0
+      fi
+      ;;
   esac
 }
 complete -o default -F _adb adb
